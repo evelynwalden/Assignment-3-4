@@ -1,0 +1,131 @@
+#include <iostream>
+using namespace std;
+
+int linearSearch(int arr[], int n, int target) {
+    for (int i = 0; i < n; i++) 
+        if (arr[i] == target) {     // Check if current element is equal to the target
+            return i;               
+        }
+    }
+    return -1;     
+}
+
+int main() {
+    int arr[] = {2, 4, 0, 1, 9};
+    int target = 1;
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int result = linearSearch(arr, n, target);
+
+    (result == -1) ? cout << "Element not found" : cout << "Element found at index " << result;
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int l, int r, int target) {
+    while (l <= r) {                // Continue the loop while the search space is valid
+        int mid = l + (r - l) / 2;  
+
+        if (arr[mid] == target) {    // If the target is found at mid, return mid
+            return mid;
+        }
+
+        if (arr[mid] < target) {     // If the target is greater, ignore the left half
+            l = mid + 1;
+        } else {                     // If the target is smaller, ignore the right half
+            r = mid - 1;
+        }
+    }
+    return -1;                      
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 10};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 10;
+    int result = binarySearch(arr, 0, n - 1, target);
+
+    (result == -1) ? cout << "Element not found" : cout << "Element found at index " << result;
+    return 0;
+}
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIdx = i;  
+        for (int j = i + 1; j < n; j++) {  
+            if (arr[j] < arr[minIdx]) {    // If the element at j is smaller than the current minimum
+                minIdx = j;               
+            }
+        }
+        swap(arr[i], arr[minIdx]); 
+    }
+}
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    selectionSort(arr, n);
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+void swap(int* a, int* b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];     
+    int i = (low - 1);        
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {  // If current element is smaller than pivot
+            i++;              
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);  
+
+        quickSort(arr, low, pi - 1); 
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    int arr[] = {10, 7, 8, 9, 1, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    quickSort(arr, 0, n - 1);
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+
+
+vmstat 1
+auto start = chrono::high_resolution_clock::now();
+// Code to be measured
+auto end = chrono::high_resolution_clock::now();
+chrono::duration<double> elapsed = end - start;
+cout << "Elapsed time: " << elapsed.count() << " seconds" << endl;
